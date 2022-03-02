@@ -1,32 +1,51 @@
 const searchPhone = () => {
-    const phoneName = document.getElementById("phone-name").value;
+    document.getElementById("phone-info").innerHTML = "";
 
-    document.getElementById("phone-details").value = "";
-    const url = `https://openapi.programming-hero.com/api/phones?search=${phoneName}`;
-    fetch(url)
-        .then((response) => response.json())
-        .then((data) => viewPhone(data.data));
+    document.getElementById("phone-details").innerHTML = "";
+    const phoneName = document.getElementById("phone-name").value;
+    if (phoneName === 0) {
+        alert("Input a valid name");
+    }
+    else {
+        const url = `https://openapi.programming-hero.com/api/phones?search=${phoneName}`;
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => viewPhone(data.data));
+    };
+    document.getElementById("phone-name").value = "";
 }
 
 const viewPhone = (phones) => {
-    const viewPhones = document.getElementById('phone-info')
-    for (const phone of phones) {
-        const div = document.createElement('div');
-        div.innerHTML = `
-        <div class="col">
-                <div class="card h-100 align-items-center">
-                    <img src="${phone.image}" class="card-img-top img-fluid w-50" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">${phone.phone_name}</h5>
-                        <p class="card-text">${phone.brand}</p>
-                    <button onclick="detailsPhone('${phone.slug}')" class="bg-primary rounded border-0 text-light px-3">More details</button>
+    if (phones.length === 0) {
+        const phoneShows = document.getElementById("phone-info");
+        phoneShows.innerHTML = `
+        <h3>Please enter a valide phone name</h3>`
+    }
+    else {
+        for (const phone of phones) {
+            if (phones.indexOf(phone) === 20) {
+                return phone;
+            }
+            const viewPhones = document.getElementById('phone-info');
+            const div = document.createElement('div');
+            div.innerHTML = `
+            <div class="col">
+                    <div class="card h-100 align-items-center">
+                        <img src="${phone.image}" class="card-img-top img-fluid my-2 w-50" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">${phone.phone_name}</h5>
+                            <p class="card-text">${phone.brand}</p>
+                        <button onclick="detailsPhone('${phone.slug}')" class="bg-primary rounded border-0 text-light px-3">More details</button>
+                    </div>
                 </div>
-            </div>
-        </div>`;
-        viewPhones.appendChild(div);
+            </div>`;
+            viewPhones.appendChild(div);
+        };
     };
 };
 const detailsPhone = (demoDetails) => {
+    document.getElementById("phone-details").innerHTML = "";
+
     const url = `https://openapi.programming-hero.com/api/phone/${demoDetails}`
     fetch(url)
         .then((response) => response.json())
@@ -34,6 +53,17 @@ const detailsPhone = (demoDetails) => {
 
 }
 const detailsSet = (mainDetails) => {
+    if (mainDetails.releaseDate === "") {
+        date = 'Release Date Not Found';
+    }
+    else if (mainDetails.others === undefined) {
+        mainDetails.others = { WLAN: "Not Found",
+        Bluetooth: "Not Found",
+        GPS: "Not Found",
+        NSB: "Not Found",
+        Radio: "Not Found",
+        USB: "Not Found" };
+    }
     const detailSet = document.getElementById("phone-details");
     const div = document.createElement('div')
     div.innerHTML = `
@@ -64,4 +94,5 @@ const detailsSet = (mainDetails) => {
                   </div>
         `
     detailSet.appendChild(div);
+    document.getElementById("phone-details").value=="";
 }
