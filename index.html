@@ -12,20 +12,19 @@
 
 </head>
 
-<body>
-    <header>
-        <nav class="navbar navbar-light bg-light">
-            <div class="container">
-                <h3>PHONE FINDER</h3>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
+<body class="container">
+    <header class="text-center my-3">
+        <h3>PHONE FINDER</h3>
     </header>
     <main>
-        <section class="container">
+        <section>
+            <div class="d-flex mx-5">
+                <input id="phone-name" class="form-control me-2" type="search" placeholder="Search"
+                    aria-label="Search">
+                <button id="search-btn" onclick="searchPhone()" class="btn btn-outline-success" type="submit">Search</button>
+            </div>
+        </section>
+        <!-- <section>
             <div class="row row-cols-1 my-3 row-cols-md-3 g-4">
                 <div class="col">
                     <div class="card h-100">
@@ -57,7 +56,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
     </main>
 
 

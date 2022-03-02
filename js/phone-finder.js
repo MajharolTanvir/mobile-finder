@@ -1,5 +1,8 @@
-const apiData = () => {
-    fatch('https://openapi.programming-hero.com/api/phones?search=iphone')
-    .then(response => response.json())
-    .than(data => console.log(data))
+const searchPhone = () => {
+    const phoneName = document.getElementById("phone-name").value;
+    const url = `https://openapi.programming-hero.com/api/phones?search=${phoneName}`;
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) =>  viewPhone(data.data));
 }
+
