@@ -1,6 +1,8 @@
+// Search any phone.
 const searchPhone = () => {
+    // Remove all phone information 
     document.getElementById("phone-info").innerHTML = "";
-
+    // Remove phone details 
     document.getElementById("phone-details").innerHTML = "";
     const phoneName = document.getElementById("phone-name").value;
     if (phoneName === 0) {
@@ -12,9 +14,10 @@ const searchPhone = () => {
             .then((response) => response.json())
             .then((data) => viewPhone(data.data));
     };
+    // Remove phone name in search Bar.
     document.getElementById("phone-name").value = "";
 }
-
+// Collect phone into API.
 const viewPhone = (phones) => {
     if (phones.length === 0) {
         const phoneShows = document.getElementById("phone-info");
@@ -43,6 +46,7 @@ const viewPhone = (phones) => {
         };
     };
 };
+// Phone Details Creation
 const detailsPhone = (demoDetails) => {
     document.getElementById("phone-details").innerHTML = "";
 
@@ -50,19 +54,20 @@ const detailsPhone = (demoDetails) => {
     fetch(url)
         .then((response) => response.json())
         .then((data) => detailsSet(data.data))
-
 }
 const detailsSet = (mainDetails) => {
     if (mainDetails.releaseDate === "") {
         date = 'Release Date Not Found';
     }
     else if (mainDetails.others === undefined) {
-        mainDetails.others = { WLAN: "Not Found",
-        Bluetooth: "Not Found",
-        GPS: "Not Found",
-        NSB: "Not Found",
-        Radio: "Not Found",
-        USB: "Not Found" };
+        mainDetails.others = {
+            WLAN: "Not Found",
+            Bluetooth: "Not Found",
+            GPS: "Not Found",
+            NSB: "Not Found",
+            Radio: "Not Found",
+            USB: "Not Found"
+        };
     }
     const detailSet = document.getElementById("phone-details");
     const div = document.createElement('div')
@@ -92,7 +97,6 @@ const detailsSet = (mainDetails) => {
                       <li class="list-group-item"><b>WLAN:</b> ${mainDetails.others.WLAN}</li>
                     </ul>
                   </div>
-        `
+        `;
     detailSet.appendChild(div);
-    document.getElementById("phone-details").value=="";
 }
